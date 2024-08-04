@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const InstagramRoaster: React.FC = () => {
@@ -9,6 +9,7 @@ const InstagramRoaster: React.FC = () => {
     const [roasting, setRoasting] = useState('');
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState('');
+    const [showModal, setShowModal] = useState(true);
 
     const fetchRoasting = async () => {
         try {
@@ -29,7 +30,20 @@ const InstagramRoaster: React.FC = () => {
 
     return (
         <div className="max-w-lg mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Instagram Roaster</h1>
+            {showModal && (
+                <div className="fixed inset-0 flex items-center justify-center z-50 bg-black bg-opacity-50">
+                    <div className="bg-white p-6 rounded shadow-lg">
+                        <h2 className="text-2xl font-bold mb-4">Disclaimer</h2>
+                        <p className="mb-4">Hanya sekedar Hiburan!! Jangan dibawa Hati!</p>
+                        <button
+                            className="bg-blue-500 text-white px-4 py-2 rounded"
+                            onClick={() => setShowModal(false)}
+                        >
+                            I Understand
+                        </button>
+                    </div>
+                </div>
+            )}
             <input
                 type="text"
                 className="border p-2 w-full mb-4"
