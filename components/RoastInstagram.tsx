@@ -36,6 +36,7 @@ const InstagramRoaster: React.FC = () => {
                 placeholder="Enter Instagram Username"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
+                required
             />
             <select
                 className="border p-2 w-full mb-4"
