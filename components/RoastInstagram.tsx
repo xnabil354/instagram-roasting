@@ -65,7 +65,7 @@ const InstagramRoaster: React.FC = () => {
                 onClick={fetchRoasting}
                 disabled={loading}
             >
-                {loading ? 'Loading...' : 'Roast'}
+                {loading ? 'Loading...' : 'Gass Roasting!'}
             </button>
             {error && (
                 <div className="mt-4 p-4 border border-red-500 rounded bg-red-100 text-red-700">
