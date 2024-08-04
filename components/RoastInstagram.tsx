@@ -8,10 +8,12 @@ const InstagramRoaster: React.FC = () => {
     const [model, setModel] = useState('geminiai');
     const [roasting, setRoasting] = useState('');
     const [loading, setLoading] = useState(false);
+    const [error, setError] = useState('');
 
     const fetchRoasting = async () => {
         try {
             setLoading(true);
+            setError(''); // Reset error state before making the request
             const response = await axios.post('https://roasting-instagram-api.vercel.app/roasting-instagram', {
                 query,
                 model,
@@ -19,6 +21,7 @@ const InstagramRoaster: React.FC = () => {
             setRoasting(response.data.roasting);
         } catch (error) {
             console.error('Error fetching data:', error);
+            setError('An error occurred. Please try again.');
         } finally {
             setLoading(false);
         }
@@ -49,6 +52,11 @@ const InstagramRoaster: React.FC = () => {
             >
                 {loading ? 'Loading...' : 'Roast'}
             </button>
+            {error && (
+                <div className="mt-4 p-4 border border-red-500 rounded bg-red-100 text-red-700">
+                    <p>{error}</p>
+                </div>
+            )}
             {roasting && (
                 <div className="mt-4 p-4 border rounded bg-gray-50">
                     <h2 className="text-xl font-bold mb-2">Roasting Result:</h2>
