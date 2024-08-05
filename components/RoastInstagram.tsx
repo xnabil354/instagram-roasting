@@ -22,7 +22,7 @@ const InstagramRoaster: React.FC = () => {
             setRoasting(response.data.roasting);
         } catch (error) {
             console.error('Error fetching data:', error);
-            setError('An error occurred. Please try again.');
+            setError('Waduh Terjadi kesalahan saat mengambil data! Coba lagi kak...');
         } finally {
             setLoading(false);
         }
