@@ -13,7 +13,7 @@ export default function RoastingForm() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
-    setError(null); // Reset error state
+    setError(null); 
     try {
       const response = await fetch('/api/roasting-instagram', {
         method: 'POST',
@@ -21,7 +21,7 @@ export default function RoastingForm() {
         body: JSON.stringify({ query: username, model }),
       });
       if (!response.ok) {
-        throw new Error('Something went wrong! Please try again.');
+        throw new Error('Waduh Terjadi Kesalahan, Mungkin Username Salah, Silahkan Coba Lagi...');
       }
       const data = await response.json();
       setRoasting(data.roasting);
@@ -33,7 +33,7 @@ export default function RoastingForm() {
   };
 
   const handleShareToInstagram = () => {
-    const instagramUrl = `https://www.instagram.com/create/story/?text=${encodeURIComponent(roasting)}`;
+    const instagramUrl = `https://www.instagram.com`;
     window.open(instagramUrl, '_blank');
   };
 
