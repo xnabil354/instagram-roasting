@@ -4,8 +4,8 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/ge
 import { Groq } from 'groq-sdk';
 import { InstagramData } from '@/lib/types';
 
-const genAI = new GoogleGenerativeAI("AIzaSyCljxrKrLrVeRoxHeYxFZrJMTSFOt5_Kf0");
-const groq = new Groq({ apiKey: "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" });
+const genAI = new GoogleGenerativeAI("YOUR_API_KEY_HERE");
+const groq = new Groq({ apiKey: "YOUR_GROQ_API_KEY_HERE" });
 
 async function generateContent(model: string, prompt: string) {
     if (model === "groqai") {
@@ -27,7 +27,7 @@ async function generateContent(model: string, prompt: string) {
       }
 }
 
-function filterResponse(response: any) {
+function containsFilteredWords(response) {
   const patternsToBlock = [
     /kejam, menyindir, dan menyakitkan/i,
     /ramah dan sopan/i,
@@ -36,13 +36,16 @@ function filterResponse(response: any) {
     /lebih baik kita fokus pada hal-hal positif/i
   ];
 
-  for (const pattern of patternsToBlock) {
-    if (pattern.test(response)) {
-      return "Konten ini telah difilter karena tidak memenuhi kebijakan keamanan kami.";
-    }
-  }
+  return patternsToBlock.some(pattern => pattern.test(response));
+}
 
-  return response;
+async function generateFilteredContent(model, prompt) {
+  let result;
+  do {
+    result = await generateContent(model, prompt);
+  } while (containsFilteredWords(result)); // Ulangi jika respons mengandung kata yang difilter
+
+  return result;
 }
 
 export async function POST(request: NextRequest) {
@@ -72,10 +75,9 @@ export async function POST(request: NextRequest) {
 
     var prompt = `berikan roasting dengan kejam, menyindir, serta menyakitkan dalam bahasa gaul untuk profile instagram berikut : ${query}. Berikut detailnya: "${JSON.stringify(DataIg)}"`;
 
-    const result = await generateContent(model ?? "geminiai", prompt);
-    const filteredResult = filterResponse(result);
+    const result = await generateFilteredContent(model ?? "geminiai", prompt);
 
-    return NextResponse.json({ roasting: filteredResult });
+    return NextResponse.json({ roasting: result });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
