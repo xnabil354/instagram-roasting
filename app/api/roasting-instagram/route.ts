@@ -4,8 +4,8 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/ge
 import { Groq } from 'groq-sdk';
 import { InstagramData } from '@/lib/types';
 
-const genAI = new GoogleGenerativeAI("YOUR_API_KEY_HERE");
-const groq = new Groq({ apiKey: "YOUR_GROQ_API_KEY_HERE" });
+const genAI = new GoogleGenerativeAI("AIzaSyCljxrKrLrVeRoxHeYxFZrJMTSFOt5_Kf0");
+const groq = new Groq({ apiKey: "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" });
 
 async function generateContent(model: string, prompt: string) {
     if (model === "groqai") {
