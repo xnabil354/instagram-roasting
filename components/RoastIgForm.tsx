@@ -26,7 +26,7 @@ export default function RoastingForm() {
       const data = await response.json();
       setRoasting(data.roasting);
     } catch (error: any) {
-      setError(error.message); // Set error message
+      setError(error.message); 
       console.error('Error:', error);
     }
     setLoading(false);

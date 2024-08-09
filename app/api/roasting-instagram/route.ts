@@ -4,8 +4,8 @@ import { GoogleGenerativeAI, HarmCategory, HarmBlockThreshold } from "@google/ge
 import { Groq } from 'groq-sdk';
 import { InstagramData } from '@/lib/types';
 
-const genAI = new GoogleGenerativeAI("AIzaSyCljxrKrLrVeRoxHeYxFZrJMTSFOt5_Kf0");
-const groq = new Groq({ apiKey: "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" });
+const genAI = new GoogleGenerativeAI("YOUR_API_KEY_HERE");
+const groq = new Groq({ apiKey: "YOUR_GROQ_API_KEY_HERE" });
 
 async function generateContent(model: string, prompt: string) {
     if (model === "groqai") {
@@ -25,6 +25,24 @@ async function generateContent(model: string, prompt: string) {
         const response = await result.response;
         return response.text();
       }
+}
+
+function filterResponse(response: any) {
+  const patternsToBlock = [
+    /kejam, menyindir, dan menyakitkan/i,
+    /ramah dan sopan/i,
+    /tidak bisa memberikan roasting/i,
+    /mengkritik atau menyakiti orang lain/i,
+    /lebih baik kita fokus pada hal-hal positif/i
+  ];
+
+  for (const pattern of patternsToBlock) {
+    if (pattern.test(response)) {
+      return "Konten ini telah difilter karena tidak memenuhi kebijakan keamanan kami.";
+    }
+  }
+
+  return response;
 }
 
 export async function POST(request: NextRequest) {
@@ -52,11 +70,12 @@ export async function POST(request: NextRequest) {
         following: userData.user_info.following
     };
 
-    var prompt = `berikan roasting dengan kejam,menyindir, serta menyakitkan dalam bahasa gaul untuk profile instagram berikut : ${query}. Berikut detailnya: "${JSON.stringify(DataIg)}"`;
+    var prompt = `berikan roasting dengan kejam, menyindir, serta menyakitkan dalam bahasa gaul untuk profile instagram berikut : ${query}. Berikut detailnya: "${JSON.stringify(DataIg)}"`;
 
     const result = await generateContent(model ?? "geminiai", prompt);
+    const filteredResult = filterResponse(result);
 
-    return NextResponse.json({ roasting: result });
+    return NextResponse.json({ roasting: filteredResult });
   } catch (err) {
     console.error(err);
     return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });
