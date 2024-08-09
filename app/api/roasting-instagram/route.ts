@@ -27,7 +27,7 @@ async function generateContent(model: string, prompt: string) {
       }
 }
 
-function containsFilteredWords(response) {
+function containsFilteredWords(responseL: any) {
   const patternsToBlock = [
     /kejam, menyindir, dan menyakitkan/i,
     /ramah dan sopan/i,
@@ -39,7 +39,7 @@ function containsFilteredWords(response) {
   return patternsToBlock.some(pattern => pattern.test(response));
 }
 
-async function generateFilteredContent(model, prompt) {
+async function generateFilteredContent(model: any, prompt: any) {
   let result;
   do {
     result = await generateContent(model, prompt);
