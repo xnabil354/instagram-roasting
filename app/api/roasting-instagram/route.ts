@@ -33,7 +33,9 @@ function containsFilteredWords(response: any) {
     /ramah dan sopan/i,
     /tidak bisa memberikan roasting/i,
     /mengkritik atau menyakiti orang lain/i,
-    /lebih baik kita fokus pada hal-hal positif/i
+    /lebih baik kita fokus pada hal-hal positif/i,
+    /Tujuan aku adalah untuk membantu orang dan memberikan informasi yang bermanfaat/i,
+    /Roasting yang kamu minta bisa dianggap sebagai ujaran kebencian dan bisa melukai orang lain/i
   ];
 
   return patternsToBlock.some(pattern => pattern.test(response));
