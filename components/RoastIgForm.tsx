@@ -1,6 +1,6 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function RoastingForm() {
   const [username, setUsername] = useState('');
@@ -8,7 +8,7 @@ export default function RoastingForm() {
   const [roasting, setRoasting] = useState('');
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,6 +28,9 @@ export default function RoastingForm() {
     } catch (error: any) {
       setError(error.message); 
       console.error('Error:', error);
+      setTimeout(() => {
+        setError(null);
+      }, 5000);
     }
     setLoading(false);
   };
