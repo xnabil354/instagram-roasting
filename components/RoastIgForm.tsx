@@ -64,6 +64,7 @@ export default function RoastingForm() {
           onChange={(e) => setUsername(e.target.value)}
           placeholder="Instagram username"
           className="w-full p-2 border rounded"
+          required
         />
         <select
           value={model}
