@@ -22,10 +22,11 @@ export default function RoastingForm() {
       });
       if (!response.ok) {
         throw new Error('Waduh Terjadi Kesalahan, Silahkan Coba Lagi...');
-      } else if (response.status === 404) {
-        throw new Error('Username Tidak Ditemukan, Silahkan Coba Lagi...');
       }
       const data = await response.json();
+      if (data.error) {
+        throw new Error(data.error);
+      }
       setRoasting(data.roasting);
     } catch (error: any) {
       setError(error.message); 
