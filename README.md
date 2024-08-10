@@ -1,8 +1,17 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
-## Getting Started
+# Instagram Roasting
 
-First, run the development server:
+A Website Instagram Roasting for Make Roasting Instagram Your Friends
+
+
+## Demo
+
+https://instagram-roasting.vercel.app/
+
+
+## Local Deployment
+
+To deploy this project run
 
 ```bash
 npm run dev
@@ -14,24 +23,42 @@ pnpm dev
 bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Features
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+- Search Username Instagram API
+- Support Private Username Instagram
+- Generate AI 
+- Result Share on Instagram
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
+## Installation
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Please Change .env.example to .env and then put you Token Key from GEMINI & GROQ AI
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+```bash
+  npm install
+  npm run build
+  npm run dev
+```
+    
+## Tech Stack
 
-## Deploy on Vercel
+**Client:** NextJS 14, Typescript, TailwindCSS
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+**Server:** NodeJS
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-# instagram-roasting
+
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env file
+
+`GEMINI_API_KEY`
+
+`GROQ_API_KEY`
+
+
+## Screenshots
+
+![App Screenshot](https://d.top4top.io/p_3143phy681.png)
+
