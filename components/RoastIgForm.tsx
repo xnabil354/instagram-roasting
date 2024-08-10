@@ -10,30 +10,31 @@ export default function RoastingForm() {
   const [showModal, setShowModal] = useState(true);
   const [error, setError] = useState(null);
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    setLoading(true);
-    setError(null); 
-    try {
-      const response = await fetch('/api/roasting-instagram', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ query: username, model }),
-      });
-      if (!response.ok) {
-        throw new Error('Waduh Terjadi Kesalahan, Silahkan Coba Lagi...');
-      }
-      const data = await response.json();
-      if (data.error) {
-        throw new Error(data.error);
-      }
-      setRoasting(data.roasting);
-    } catch (error: any) {
-      setError(error.message); 
-      console.error('Error:', error);
+const handleSubmit = async (e: React.FormEvent) => {
+  e.preventDefault();
+  setLoading(true);
+  setError(null); 
+  try {
+    const response = await fetch('/api/roasting-instagram', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ query: username, model }),
+    });
+    if (!response.ok) {
+      throw new Error('Waduh Terjadi Kesalahan, Silahkan Coba Lagi...');
     }
-    setLoading(false);
-  };
+    const data = await response.json();
+    if (data.user_info === null) {
+      throw new Error('Username Tidak Ditemukan, Silahkan Coba Lagi...');
+    }
+    setRoasting(data.roasting);
+  } catch (error: any) {
+    setError(error.message); 
+    console.error('Error:', error);
+  }
+  setLoading(false);
+};
+
 
   const handleShareToInstagram = () => {
     const instagramUrl = `https://www.instagram.com`;
