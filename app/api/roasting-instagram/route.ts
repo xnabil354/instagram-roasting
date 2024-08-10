@@ -27,7 +27,7 @@ async function generateContent(model: string, prompt: string) {
       }
 }
 
-function containsFilteredWords(responseL: any) {
+function containsFilteredWords(response: any) {
   const patternsToBlock = [
     /kejam, menyindir, dan menyakitkan/i,
     /ramah dan sopan/i,
