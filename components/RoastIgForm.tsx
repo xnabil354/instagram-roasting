@@ -9,6 +9,17 @@ export default function RoastingForm() {
   const [loading, setLoading] = useState(false);
   const [showModal, setShowModal] = useState(true);
   const [error, setError] = useState<string | null>(null);
+  const [maintenanceMessage, setMaintenanceMessage] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (model === 'groqai') {
+      setMaintenanceMessage("Mohon Maaf, Sedang Maintenance AI ini. Silahkan Menggunakan Gemini AI.");
+      setTimeout(() => {
+        setModel('geminiai');
+        setMaintenanceMessage(null);
+      }, 3000);
+    }
+  }, [model]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -77,11 +88,17 @@ export default function RoastingForm() {
         <button
           type="submit"
           className="w-full p-2 bg-blue-500 text-white rounded"
-          disabled={loading}
+          disabled={loading || model === 'groqai'}
         >
           {loading ? 'Loading...' : 'Gass Roasting!'}
         </button>
       </form>
+
+      {maintenanceMessage && (
+        <div className="mt-4 p-4 bg-yellow-100 rounded">
+          <p>{maintenanceMessage}</p>
+        </div>
+      )}
 
       {roasting && (
         <div className="mt-4 p-4 bg-gray-100 rounded">
